@@ -81,6 +81,26 @@ Server runs on: http://localhost:3000 (default)
 
 ---
 
+### 7. Run with Docker
+
+```bash
+docker compose up --build
+```
+
+The API will be available at http://localhost:3000
+
+To populate the Docker database with sample data:
+
+```bash
+npm run docker:seed
+```
+Equivalent to: 
+```bash
+docker compose exec app npm run db:seed
+```
+
+---
+
 ## API Overview
 
 ### Users
@@ -131,7 +151,6 @@ Server runs on: http://localhost:3000 (default)
 
 ## Future Improvements
 
-* Docker setup for full environment
 * Automated tests
 * CI/CD pipeline
 
@@ -139,7 +158,7 @@ Server runs on: http://localhost:3000 (default)
 
 ## Postman Collection
 
-A Postman collection is included under `docs/postman/`.
+A Postman collection is included under `docs/postman/`
 
 Import it into Postman to test all endpoints with predefined requests and expected responses.
 

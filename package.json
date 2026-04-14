@@ -1,11 +1,17 @@
 {
 	"name": "library-management-backend",
 	"version": "1.0.0",
-	"main": "index.js",
 	"scripts": {
+		"prisma:generate": "prisma generate",
+		"db:migrate": "prisma migrate deploy",
+		"db:seed": "prisma db seed",
+		"db:reset": "prisma migrate reset --force",
 		"dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/server.ts",
-		"build": "tsc",
+		"build": "npm run prisma:generate && tsc && tsc-alias",
 		"start": "node dist/server",
+		"docker:up": "docker compose up --build",
+		"docker:down": "docker compose down",
+		"docker:seed": "docker compose exec app npm run db:seed",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier . --write",
@@ -24,6 +30,7 @@
 		"prettier": "^3.8.2",
 		"ts-node": "^10.9.2",
 		"ts-node-dev": "^2.0.0",
+		"tsc-alias": "^1.8.16",
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^6.0.2",
 		"typescript-eslint": "^8.58.2"
