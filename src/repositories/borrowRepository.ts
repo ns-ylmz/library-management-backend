@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export const borrowRepository = {
-	findActiveBorrowsByUserAndBook: async (userId: number, bookId: number) => {
+	async findActiveBorrowsByUserAndBook(userId: number, bookId: number) {
 		return await prisma.borrow.findFirst({
 			where: {
 				userId,
@@ -19,7 +19,7 @@ export const borrowRepository = {
 		});
 	},
 
-	findActiveBorrowsByBookId: async (bookId: number) => {
+	async findActiveBorrowsByBookId(bookId: number) {
 		return await prisma.borrow.findFirst({
 			where: {
 				bookId,
@@ -34,7 +34,7 @@ export const borrowRepository = {
 		});
 	},
 
-	create: async (userId: number, bookId: number) => {
+	async create(userId: number, bookId: number) {
 		return await prisma.borrow.create({
 			data: {
 				userId,
@@ -51,7 +51,7 @@ export const borrowRepository = {
 		});
 	},
 
-	returnBorrow: async (id: number, score: number) => {
+	async returnBorrow(id: number, score: number) {
 		return await prisma.borrow.update({
 			where: { id },
 			data: {

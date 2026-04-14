@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export const userRepository = {
-	findAll: async () => {
+	async findAll() {
 		return await prisma.user.findMany({
 			select: {
 				id: true,
@@ -13,7 +13,7 @@ export const userRepository = {
 		});
 	},
 
-	findById: async (id: number) => {
+	async findById(id: number) {
 		return await prisma.user.findUnique({
 			where: {
 				id,
@@ -25,7 +25,7 @@ export const userRepository = {
 		});
 	},
 
-	findByIdWithBorrows: async (id: number) => {
+	async findByIdWithBorrows(id: number) {
 		return await prisma.user.findUnique({
 			where: {
 				id,
@@ -54,7 +54,7 @@ export const userRepository = {
 		});
 	},
 
-	create: async (name: string) => {
+	async create(name: string) {
 		return await prisma.user.create({
 			data: {
 				name,
