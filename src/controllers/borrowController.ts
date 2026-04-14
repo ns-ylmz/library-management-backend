@@ -8,9 +8,9 @@ export const borrowController = {
 		try {
 			const { bookId, userId } = req.params as unknown as BorrowBookParams;
 			await borrowService.borrowBook(userId, bookId);
-			res.status(201).send();
+			return res.status(204).end();
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 
@@ -19,9 +19,9 @@ export const borrowController = {
 			const { bookId, userId } = req.params as unknown as BorrowBookParams;
 			const { score } = req.body as ReturnBookBody;
 			await borrowService.returnBook(userId, bookId, score);
-			res.status(200).send();
+			return res.status(204).end();
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 };

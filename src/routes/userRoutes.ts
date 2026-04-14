@@ -17,7 +17,7 @@ const { borrowBook, returnBook } = borrowController;
 
 const router = Router();
 
-router.get('/', validate(userIdParamsSchema, 'params'), getUsers);
+router.get('/', getUsers);
 router.get('/:id', validate(userIdParamsSchema, 'params'), getUserById);
 router.post('/', validate(createUserBodySchema, 'body'), createUser);
 

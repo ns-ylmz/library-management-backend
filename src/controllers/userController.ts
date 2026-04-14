@@ -7,9 +7,9 @@ export const userController = {
 	async getUsers(_req: Request, res: Response, next: NextFunction) {
 		try {
 			const users = await userService.getUsers();
-			res.status(200).json(users);
+			return res.status(200).json(users);
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 
@@ -17,9 +17,9 @@ export const userController = {
 		try {
 			const { id } = req.params as unknown as UserIdParams;
 			const user = await userService.getUserById(id);
-			res.status(200).json(user);
+			return res.status(200).json(user);
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 
@@ -27,9 +27,9 @@ export const userController = {
 		try {
 			const { name } = req.body as CreateUserBody;
 			await userService.createUser(name);
-			res.sendStatus(201);
+			return res.status(201).end();
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 };

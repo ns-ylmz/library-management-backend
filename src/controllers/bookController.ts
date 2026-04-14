@@ -7,9 +7,9 @@ export const bookController = {
 	async getBooks(_req: Request, res: Response, next: NextFunction) {
 		try {
 			const books = await bookService.getBooks();
-			res.status(200).json(books);
+			return res.status(200).json(books);
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 
@@ -17,9 +17,9 @@ export const bookController = {
 		try {
 			const { id } = req.params as unknown as BookIdParams;
 			const book = await bookService.getBookById(id);
-			res.status(200).json(book);
+			return res.status(200).json(book);
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 
@@ -27,9 +27,9 @@ export const bookController = {
 		try {
 			const { name } = req.body as CreateBookBody;
 			await bookService.createBook(name);
-			res.sendStatus(201);
+			return res.status(201).end();
 		} catch (error) {
-			next(error);
+			return next(error);
 		}
 	},
 };
