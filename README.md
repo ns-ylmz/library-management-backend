@@ -29,6 +29,22 @@ Built with Node.js, Express, TypeScript, and Prisma (PostgreSQL).
 
 ---
 
+## Database
+
+The application uses PostgreSQL as the relational database.
+
+Database schema is managed using Prisma ORM. All schema definitions and migrations are located under the `prisma/` directory.
+
+Prisma generates SQL migration files automatically. These files serve as the DDL (Data Definition Language) scripts required to create and manage the database schema.
+
+To apply migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+---
+
 ## Getting Started
 
 ### 1. Install dependencies
@@ -41,7 +57,7 @@ npm install
 
 ### 2. Setup environment variables
 
-Create a `.env` file:
+Create a `.env` file (you can copy from `.env.example`):
 
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/library_db?schema=public"
@@ -59,6 +75,12 @@ Make sure PostgreSQL is running locally or via Docker.
 
 ```bash
 npx prisma migrate dev
+```
+
+In production (Docker):
+
+```bash
+npx prisma migrate deploy
 ```
 
 ---
@@ -94,10 +116,7 @@ To populate the Docker database with sample data:
 ```bash
 npm run docker:seed
 ```
-Equivalent to: 
-```bash
-docker compose exec app npm run db:seed
-```
+(Equivalent to: `docker compose exec app npm run db:seed`)
 
 ---
 
