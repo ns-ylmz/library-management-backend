@@ -49,7 +49,7 @@ export const bookService = {
 		};
 	},
 
-	async create(name: string): Promise<void> {
-		await bookRepository.create(name);
+	async createBook(name: string): Promise<void> {
+		await bookRepository.createBook(name);
 	},
 };

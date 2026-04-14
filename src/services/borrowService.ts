@@ -31,7 +31,7 @@ export const borrowService = {
 			throw new AppError('Book is currently borrowed by another user', 409);
 		}
 
-		await borrowRepository.create(userId, bookId);
+		await borrowRepository.createBorrow(userId, bookId);
 	},
 
 	async returnBook(

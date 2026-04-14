@@ -54,7 +54,7 @@ export const userRepository = {
 		});
 	},
 
-	async create(name: string) {
+	async createUser(name: string) {
 		return await prisma.user.create({
 			data: {
 				name,

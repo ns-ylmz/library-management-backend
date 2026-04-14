@@ -54,7 +54,7 @@ export const userService = {
 		};
 	},
 
-	async create(name: string): Promise<void> {
-		await userRepository.create(name);
+	async createUser(name: string): Promise<void> {
+		await userRepository.createUser(name);
 	},
 };

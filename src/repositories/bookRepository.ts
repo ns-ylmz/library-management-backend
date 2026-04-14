@@ -50,7 +50,7 @@ export const bookRepository = {
 		});
 	},
 
-	async create(name: string) {
+	async createBook(name: string) {
 		return await prisma.book.create({
 			data: {
 				name,

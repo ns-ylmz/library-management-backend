@@ -34,7 +34,7 @@ export const borrowRepository = {
 		});
 	},
 
-	async create(userId: number, bookId: number) {
+	async createBorrow(userId: number, bookId: number) {
 		return await prisma.borrow.create({
 			data: {
 				userId,
