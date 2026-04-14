@@ -22,12 +22,17 @@
 		"eslint": "^10.2.0",
 		"eslint-config-prettier": "^10.1.8",
 		"prettier": "^3.8.2",
+		"ts-node": "^10.9.2",
 		"ts-node-dev": "^2.0.0",
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^6.0.2",
 		"typescript-eslint": "^8.58.2"
 	},
 	"dependencies": {
-		"express": "^5.2.1"
+		"@prisma/adapter-pg": "^7.7.0",
+		"@prisma/client": "^7.7.0",
+		"express": "^5.2.1",
+		"pg": "^8.20.0",
+		"prisma": "^7.7.0"
 	}
 }
