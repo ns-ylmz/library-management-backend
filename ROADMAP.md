@@ -27,6 +27,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 ## 3. Upcoming Phases
 
 ### Phase 1 – Database & Schema Setup
+
 **Objective:** Establish database layer and define minimal data model
 
 - [ ] Install and configure Prisma
@@ -41,12 +42,14 @@ The **Library Management REST API** is a focused backend system for managing cor
 - [ ] Verify database connectivity and schema
 
 **Deliverables:**
+
 - `.env` file with DATABASE_URL
 - `prisma/schema.prisma` with User, Book, Borrow models
 - Initial migration files
 - Seed data in `prisma/seed.ts`
 
 **Key Constraints:**
+
 - User model: `name` field only (no email, phone)
 - Book model: `name` field only (no author, ISBN)
 - Borrow model: track `borrowedAt`, `returnedAt`, `score`
@@ -54,9 +57,11 @@ The **Library Management REST API** is a focused backend system for managing cor
 ---
 
 ### Phase 2 – Core Endpoints (API Contract)
+
 **Objective:** Implement the 8 required endpoints matching Postman collection exactly
 
 #### User Endpoints
+
 - [ ] `GET /users` – List all users
   - Response: Array of users with id and name
 - [ ] `GET /users/:id` – Get user details
@@ -66,6 +71,7 @@ The **Library Management REST API** is a focused backend system for managing cor
   - Response: 201 Created (empty body)
 
 #### Book Endpoints
+
 - [ ] `GET /books` – List all books
   - Response: Array of books with id and name
 - [ ] `GET /books/:id` – Get book details
@@ -76,6 +82,7 @@ The **Library Management REST API** is a focused backend system for managing cor
   - Response: 201 Created (empty body)
 
 #### Borrow Endpoints
+
 - [ ] `POST /users/:userId/borrow/:bookId` – Borrow a book
   - Response: 204 No Content
 - [ ] `POST /users/:userId/return/:bookId` – Return borrowed book
@@ -83,6 +90,7 @@ The **Library Management REST API** is a focused backend system for managing cor
   - Response: 204 No Content
 
 **Deliverables:**
+
 - User controller, service, and repository
 - Book controller, service, and repository
 - Borrow controller, service, and repository
@@ -90,6 +98,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 - All queries implemented
 
 **Critical Constraints:**
+
 - NO pagination endpoints
 - NO filtering or search
 - NO update/delete operations
@@ -103,6 +112,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 ---
 
 ### Phase 3 – Business Logic & Constraints
+
 **Objective:** Enforce domain rules and data consistency
 
 - [ ] Prevent borrowing a book that user already has borrowed (not returned)
@@ -118,6 +128,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 - [ ] Accept any numeric score value (no enforced range)
 
 **Deliverables:**
+
 - Service layer business logic
 - Repository query constraints
 - Proper data filtering logic
@@ -125,15 +136,18 @@ The **Library Management REST API** is a focused backend system for managing cor
 ---
 
 ### Phase 4 – Validation & Error Handling
+
 **Objective:** Enforce input validation and consistent error responses
 
 #### Input Validation (Zod Schemas)
+
 - [ ] User creation: name is required (string, non-empty)
 - [ ] Book creation: name is required (string, non-empty)
 - [ ] Return book: score is required (number)
 - [ ] Route parameters: userId and bookId are valid numeric IDs
 
 #### Error Handling & Status Codes
+
 - [ ] Implement global error handler middleware
 - [ ] 400 Bad Request – missing/invalid fields, invalid ID format
 - [ ] 404 Not Found – user not found, book not found, borrow record not found
@@ -142,6 +156,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 - [ ] Consistent error response format (e.g., `{ "error": "message" }`)
 
 **Deliverables:**
+
 - Zod schemas in `validators/` directory
 - Global error middleware in `middlewares/`
 - Consistent error response structure
@@ -150,6 +165,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 ---
 
 ### Phase 5 – API Compliance & Response Format
+
 **Objective:** Match Postman collection responses exactly
 
 - [ ] Remove any custom response envelopes (no `status`, `data`, `message` wrapper)
@@ -167,6 +183,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 - [ ] Verify all responses match Postman collection examples exactly
 
 **Deliverables:**
+
 - Response formatting utilities (if needed)
 - Postman collection compatibility verified
 - Edge case documentation
@@ -174,6 +191,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 ---
 
 ### Phase 6 – Testing & Finalization
+
 **Objective:** Ensure correctness and production readiness
 
 - [ ] Manual endpoint testing with complete Postman collection
@@ -197,6 +215,7 @@ The **Library Management REST API** is a focused backend system for managing cor
 - [ ] Final commit and repository state
 
 **Deliverables:**
+
 - Postman collection test results
 - Updated README.md
 - Clean, formatted codebase
@@ -257,16 +276,16 @@ library-management-backend/
 
 **All Endpoints (FINAL):**
 
-| Method | Endpoint | Request Body | Response | Status |
-|--------|----------|--------------|----------|--------|
-| GET | /users | — | Array[User] | 200 |
-| GET | /users/:id | — | User (with books) | 200 |
-| POST | /users | `{ name }` | (empty) | 201 |
-| GET | /books | — | Array[Book] | 200 |
-| GET | /books/:id | — | Book (with avg score) | 200 |
-| POST | /books | `{ name }` | (empty) | 201 |
-| POST | /users/:userId/borrow/:bookId | — | (empty) | 204 |
-| POST | /users/:userId/return/:bookId | `{ score }` | (empty) | 204 |
+| Method | Endpoint                      | Request Body | Response              | Status |
+| ------ | ----------------------------- | ------------ | --------------------- | ------ |
+| GET    | /users                        | —            | Array[User]           | 200    |
+| GET    | /users/:id                    | —            | User (with books)     | 200    |
+| POST   | /users                        | `{ name }`   | (empty)               | 201    |
+| GET    | /books                        | —            | Array[Book]           | 200    |
+| GET    | /books/:id                    | —            | Book (with avg score) | 200    |
+| POST   | /books                        | `{ name }`   | (empty)               | 201    |
+| POST   | /users/:userId/borrow/:bookId | —            | (empty)               | 204    |
+| POST   | /users/:userId/return/:bookId | `{ score }`  | (empty)               | 204    |
 
 **Data Models:**
 
@@ -301,6 +320,7 @@ Borrow {
 **Constraint-Driven Development:** This roadmap is strictly bound by an API contract. Every feature must trace back to an explicit requirement. No feature creep, no "nice-to-haves."
 
 **Layered Architecture Rationale:**
+
 - Controllers handle HTTP concerns
 - Services contain business logic
 - Repositories abstract data access
@@ -310,6 +330,7 @@ Borrow {
 
 **User & Book:** Simple, minimal – only `name` field to match contract
 **Borrow:** Tracks relationship with timestamps and rating
+
 - `borrowedAt`: When book was borrowed
 - `returnedAt`: When book was returned (null if not returned)
 - `score`: Rating given on return (null if not returned)
@@ -324,6 +345,7 @@ Borrow {
 ### No Custom Response Envelope
 
 Responses must match Postman collection exactly. No wrapper layers:
+
 ```javascript
 // ✅ Correct
 GET /users/1
