@@ -2,14 +2,35 @@ import { Router } from 'express';
 
 import { userController } from '@/controllers/userController';
 import { borrowController } from '@/controllers/borrowController';
+import { validate } from '@/middlewares/validation';
+import {
+	createUserBodySchema,
+	userIdParamsSchema,
+} from '@/validators/userValidator';
+import {
+	borrowBookParamsSchema,
+	returnBookBodySchema,
+} from '@/validators/borrowValidator';
+
+const { getUsers, getUserById, createUser } = userController;
+const { borrowBook, returnBook } = borrowController;
 
 const router = Router();
 
-router.get('/', userController.getUsers);
-router.get('/:id', userController.getUserById);
-router.post('/', userController.createUser);
+router.get('/', validate(userIdParamsSchema, 'params'), getUsers);
+router.get('/:id', validate(userIdParamsSchema, 'params'), getUserById);
+router.post('/', validate(createUserBodySchema, 'body'), createUser);
 
-router.post('/:userId/borrow/:bookId', borrowController.borrowBook);
-router.post('/:userId/return/:bookId', borrowController.returnBook);
+router.post(
+	'/:userId/borrow/:bookId',
+	validate(borrowBookParamsSchema, 'params'),
+	borrowBook,
+);
+router.post(
+	'/:userId/return/:bookId',
+	validate(borrowBookParamsSchema, 'params'),
+	validate(returnBookBodySchema, 'body'),
+	returnBook,
+);
 
 export default router;

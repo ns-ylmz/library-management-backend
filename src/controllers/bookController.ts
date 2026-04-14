@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { bookService } from '@/services/bookService';
+import { BookIdParams, CreateBookBody } from '@/validators/bookValidator';
 
 export const bookController = {
-	async getBooks(req: Request, res: Response, next: NextFunction) {
+	async getBooks(_req: Request, res: Response, next: NextFunction) {
 		try {
 			const books = await bookService.getBooks();
 			res.status(200).json(books);
@@ -14,8 +15,8 @@ export const bookController = {
 
 	async getBookById(req: Request, res: Response, next: NextFunction) {
 		try {
-			const bookId = Number(req.params.id);
-			const book = await bookService.getBookById(bookId);
+			const { id } = req.params as unknown as BookIdParams;
+			const book = await bookService.getBookById(id);
 			res.status(200).json(book);
 		} catch (error) {
 			next(error);
@@ -24,9 +25,9 @@ export const bookController = {
 
 	async createBook(req: Request, res: Response, next: NextFunction) {
 		try {
-			const { name } = req.body as { name: string };
+			const { name } = req.body as CreateBookBody;
 			await bookService.createBook(name);
-			res.status(201).send();
+			res.sendStatus(201);
 		} catch (error) {
 			next(error);
 		}
